@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <Product
+    Id="*"
+    Name="Meika-256"
+    Language="1033"
+    Version="1.0.0"
+    Manufacturer="Meika Security"
+    UpgradeCode="E8F7B59B-9C6D-44D3-A12C-89C9E8D5E101">
+
+    <Package
+      InstallerVersion="500"
+      Compressed="yes"
+      InstallScope="perMachine" />
+
+    <MediaTemplate />
+
+    <!-- Install directory -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="INSTALLDIR" Name="Meika256">
+
+          <Directory Id="BIN_DIR" Name="bin"/>
+          <Directory Id="INCLUDE_DIR" Name="include"/>
+          <Directory Id="LIB_DIR" Name="lib"/>
+
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <!-- Files -->
+    <ComponentGroup Id="MeikaComponents" Directory="INSTALLDIR">
+
+      <Component Id="CliExe" Guid="*">
+        <File Source="staging\bin\meika256-cli.exe" KeyPath="yes"/>
+      </Component>
+
+      <Component Id="DllLib" Guid="*">
+        <File Source="staging\bin\meika256.dll" KeyPath="yes"/>
+      </Component>
+
+      <Component Id="Header" Guid="*">
+        <File Source="staging\include\meika256.h" KeyPath="yes"/>
+      </Component>
+
+      <Component Id="ImportLib" Guid="*">
+        <File Source="staging\lib\meika256.lib" KeyPath="yes"/>
+      </Component>
+
+      <!-- PATH -->
+      <Component Id="PathEnv" Guid="*">
+        <Environment
+          Id="AddToPath"
+          Name="PATH"
+          Value="[BIN_DIR]"
+          Permanent="no"
+          Part="last"
+          Action="set"
+          System="yes" />
+      </Component>
+
+    </ComponentGroup>
+
+    <Feature Id="MainFeature" Title="Meika256" Level="1">
+      <ComponentGroupRef Id="MeikaComponents"/>
+    </Feature>
+
+  </Product>
+</Wix>

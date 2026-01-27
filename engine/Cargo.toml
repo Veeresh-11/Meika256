@@ -1,0 +1,18 @@
+[package]
+name = "meika256-lib"
+version = "0.1.0"
+edition = "2021"
+authors = ["Veeresh"]
+description = "Meika-256 cryptographic engine"
+
+[lib]
+crate-type = ["rlib", "cdylib", "staticlib"]
+
+[dependencies]
+aes-gcm = "0.10"
+argon2 = "0.5"
+hkdf = "0.12"
+sha3 = "0.10"
+rand = "0.8"
+anyhow = "1.0"
+zeroize = "1.7"

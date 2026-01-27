@@ -1,0 +1,46 @@
+{
+  "name": "meika-256",
+  "displayName": "Meika-256 Encryption",
+  "description": "Encrypt and decrypt files using the Meika-256 cryptographic engine",
+  "version": "0.1.0",
+  "publisher": "veeresh",
+  "license": "MIT",
+
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+
+  "icon": "assets/icon.png",
+
+  "categories": [
+    "Other",
+    "Extension Packs"
+  ],
+
+  "main": "./out/extension.js",
+
+  "contributes": {
+    "commands": [
+      {
+        "command": "meika256.encrypt",
+        "title": "Meika-256: Encrypt File"
+      },
+      {
+        "command": "meika256.decrypt",
+        "title": "Meika-256: Decrypt File"
+      }
+    ]
+  },
+
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "prepublishOnly": "npm run compile"
+  },
+
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  }
+}

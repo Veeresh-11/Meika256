@@ -1,0 +1,44 @@
+name: Build Windows
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: x86_64-pc-windows-msvc
+          override: true
+
+      - name: Build CLI
+        run: cargo build --release -p meika256-cli
+
+      - name: Build DLL
+        run: cargo build --release -p meika256-dll
+
+      - name: Prepare SDK
+        shell: pwsh
+        run: |
+          mkdir sdk
+          mkdir sdk\bin
+          mkdir sdk\lib
+          mkdir sdk\include
+          copy target\release\meika256.dll sdk\bin\
+          copy target\release\meika256.dll.lib sdk\lib\
+          copy meika256-sdk\include\meika256.h sdk\include\
+
+      - name: Upload SDK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meika256-sdk-windows
+          path: sdk

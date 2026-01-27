@@ -1,0 +1,40 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: x86_64-pc-windows-msvc
+          override: true
+
+      - name: Build everything
+        run: |
+          cargo build --release -p meika256-cli
+          cargo build --release -p meika256-dll
+
+      - name: Package SDK
+        shell: pwsh
+        run: |
+          mkdir meika256-sdk-release
+          copy -Recurse meika256-sdk\* meika256-sdk-release\
+          copy target\release\meika256.dll meika256-sdk-release\bin\
+          copy target\release\meika256.dll.lib meika256-sdk-release\lib\
+          Compress-Archive meika256-sdk-release meika256-sdk.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            target/release/meika256-cli.exe
+            meika256-sdk.zip

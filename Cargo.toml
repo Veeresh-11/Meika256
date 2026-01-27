@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "engine",
+    "cli",
+    "dll"
+]
+
+resolver = "2"

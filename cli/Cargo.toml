@@ -1,0 +1,13 @@
+[package]
+name = "meika256-cli"
+version = "0.1.0"
+edition = "2021"
+authors = ["Veeresh"]
+description = "Meika-256 command line tool"
+
+[dependencies]
+meika256-lib = { path = "../engine" }
+anyhow = "1.0"
+indicatif = "0.17"
+log = "0.4"
+simplelog = "0.12"

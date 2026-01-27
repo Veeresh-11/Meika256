@@ -1,0 +1,23 @@
+# Meika-256 Default Parameters
+# ===========================
+# This file documents safe defaults.
+# Applications may override values via meika256.yaml.
+
+stream:
+  threshold_bytes: 10485760
+  chunk_size: 65536
+
+crypto:
+  cipher: aes-256-gcm
+  nonce_size: 12
+  salt_size: 16
+
+kdf:
+  algorithm: argon2id
+  memory_kib: 65536
+  iterations: 3
+  parallelism: 1
+  output_length: 32
+
+meika:
+  rounds: 256
