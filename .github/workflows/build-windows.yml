@@ -24,7 +24,7 @@ jobs:
         run: cargo build --release -p meika256-cli
 
       - name: Build DLL
-        run: cargo build --release -p meika256-dll
+        run: cargo build --release -p meika256
 
       - name: Prepare SDK
         shell: pwsh
